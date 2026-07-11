@@ -11,7 +11,6 @@
 
     <style>
         body {
-            /* Фирменный глубокий индустриальный графит по бокам */
             background-color: #25282B; 
             margin: 0;
             padding: 0;
@@ -22,7 +21,6 @@
             min-height: 100vh;
         }
 
-        /* НАСТРОЙКА СКВOЗНОГО ХЕДЕРА — платина лежит поверх плаката */
         .editorial-header {
             width: 100%;
             max-width: 650px;
@@ -44,15 +42,10 @@
             font-weight: 600; 
         }
 
-        /* Пройденные шаги Проблема и Симптомы становятся активными ссылками назад */
-        .editorial-header .passed {
-            color: #25282B;
-        }
-        .editorial-header .passed:hover {
-            color: #B82E12;
-        }
+        .editorial-header .passed { color: #25282B; }
+        .editorial-header .passed:hover { color: #B82E12; }
         
-        /* СИМПТОМЫ горят алым капсом, фиксируя текущий большой блок воронки */
+        /* Второе слово СЦЕНАРИИ теперь горит фирменным алым капсом */
         .editorial-header .current { 
             color: #B82E12; 
             font-weight: 700; 
@@ -65,13 +58,11 @@
             max-width: 650px; 
             width: 100%;
             position: relative;
-            /* Наша светлая газетная текстура на шаг выше — в корне сайта */
             background: url('../bg.jpg') repeat;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3); 
             margin: 0 auto 40px auto;
         }
 
-        /* На мобильных телефонах убираем темные бока */
         @media (max-width: 768px) {
             body { background-color: url('../bg.jpg') repeat; } 
             .slide-container { margin: 0 auto; max-width: 100%; box-shadow: none; }
@@ -83,11 +74,11 @@
 </head>
 <body>
 
-    <!-- ВЕРХНИЙ МАРШРУТ (Проблема и Симптомы — ссылки назад, СИМПТОМЫ — горит алым капсом) -->
+    <!-- ВЕРХНИЙ ОБНОВЛЕННЫЙ МАРШРУТ (Внедрено слово СЦЕНАРИИ вместо вторых симптомов) -->
     <div class="editorial-header">
         <a href="../" class="passed">Проблема</a> ➔ 
         <a href="../b1/" class="passed">Симптомы</a> ➔ 
-        <span class="current">СИМПТОМЫ</span> ➔ 
+        <span class="current">СЦЕНАРИИ</span> ➔ 
         <span>Разрыв</span> ➔ 
         <span>Причина</span> ➔ 
         <span>Масштаб</span> ➔ 
@@ -95,8 +86,8 @@
         <span>Решение</span>
     </div>
 
-    <!-- МОНОЛИТНЫЙ ПЛАКАТ СТРАНИЦЫ 3 (БЕЗ КНОПОК ВНИЗУ) -->
     <div class="slide-container">
+        <!-- Код ищет точное имя файла в вашей папке -->
         <img src="hero3.png" alt="Карта соответствия действий" class="responsive-img">
     </div>
 
