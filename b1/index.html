@@ -5,16 +5,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Карта доверия — Страница 2</title>
     
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
     <style>
         body {
+            /* Подтягиваем газетную текстуру, которая лежит на шаг выше — в корне сайта */
             background: url('../bg.jpg') repeat; 
             margin: 0;
             padding: 0;
+            font-family: 'Inter', sans-serif;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
             min-height: 100vh;
+        }
+
+        /* НАСТРОЙКА СКВOЗНОГО ХЕДЕРА ДЛЯ СТРАНИЦЫ 2 */
+        .editorial-header {
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            background: rgba(241, 243, 245, 0.9); 
+            padding: 14px 16px;
+            font-size: 11px;
+            letter-spacing: 0.05em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #DDE1E5;
+            margin-top: 10px;
+        }
+
+        .editorial-header span, .editorial-header a { 
+            color: #71777E; 
+            text-decoration: none; 
+            font-weight: 600; 
+        }
+
+        /* Пройденный шаг Проблема становится активной ссылкой */
+        .editorial-header .passed {
+            color: #25282B;
+        }
+        .editorial-header .passed:hover {
+            color: #B82E12;
+        }
+        
+        /* Фирменный алый капс для текущего шага СИМПТОМЫ */
+        .editorial-header .current { 
+            color: #B82E12; 
+            font-weight: 700; 
+            text-transform: uppercase;
+            border-bottom: 2px solid #B82E12; 
+            padding-bottom: 2px; 
         }
 
         .slide-container {
@@ -22,27 +66,20 @@
             width: 100%;
             position: relative;
             box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            margin: 20px auto;
+            margin: 10px auto 40px auto;
         }
 
         @media (max-width: 768px) {
-            .slide-container {
-                margin: 0 auto;
-                max-width: 100%;
-            }
+            .slide-container { margin: 0 auto; max-width: 100%; }
+            .editorial-header { max-width: 100%; font-size: 9px; padding: 12px 8px; }
         }
 
-        .responsive-img {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin: 0 auto;
-        }
+        .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; }
 
-        /* Невидимая кликабельная зона, наложенная строго поверх кнопки "ПРОЙТИ ЧЕКАП" */
+        /* НЕВИДИМАЯ ЗОНА СТРОГО ПОВЕРХ ВАШЕЙ НАРИСОВАННОЙ КНОПКИ "ПРОЙТИ ЧЕКАП" */
         .clickable-zone {
             position: absolute;
-            bottom: 2.3%; 
+            bottom: 2.3%; /* Координаты вашей алой кнопки чекапа */
             left: 36%;
             width: 28%;
             height: 3.2%;
@@ -54,13 +91,24 @@
 </head>
 <body>
 
+    <!-- ВЕРХНИЙ МАРШРУТ (Проблема — ссылка назад, СИМПТОМЫ — горят алым капсом) -->
+    <div class="editorial-header">
+        <a href="../" class="passed">Проблема</a> ➔ 
+        <span class="current">СИМПТОМЫ</span> ➔ 
+        <span>Разрыв</span> ➔ 
+        <span>Причина</span> ➔ 
+        <span>Масштаб</span> ➔ 
+        <span>Состав</span> ➔ 
+        <span>Решение</span>
+    </div>
+
+    <!-- МОНОЛИТНЫЙ ПЛАКАТ СТРАНИЦЫ 2 -->
     <div class="slide-container">
         <img src="hero2.png" alt="Презентации: одинаковые симптомы — разные причины" class="responsive-img">
         
-        <!-- ВСТАВЬТЕ ВАШУ ССЫЛКУ НА ЯНДЕКС ФОРМУ ВНУТРЬ КАВЫЧЕК ДИРЕКТИВЫ href НИЖЕ -->
-        <a href="https://forms.yandex.ru/cloud/6a2fdca702848fae664c5da1" class="clickable-zone" title="Пройти чекап" target="_blank"></a>
+        <!-- ВСТАВЬТЕ ВАШУ РЕАЛЬНУЮ ССЫЛКУ НА ЯНДЕКС ФОРМУ ВНУТРЬ href НИЖЕ -->
+        <a href="СЮДА_ВСТАВЬТЕ_ССЫЛКУ_НА_ВАШУ_ЯНДЕКС_ФОРМУ" class="clickable-zone" title="Пройти чекап" target="_blank"></a>
     </div>
 
 </body>
 </html>
-
