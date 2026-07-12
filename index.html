@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Карта доверия — Страница 1</title>
     
+    <!-- Подключаем чистый швейцарский шрифт Inter -->
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
@@ -22,12 +23,12 @@
             min-height: 100vh;
         }
 
-        /* НАСТРОЙКА ХЕДЕРА — теперь он лежит поверх плаката */
+        /* НАСТРОЙКА ХЕДЕРА — светлая платина лежит поверх плаката */
         .editorial-header {
             width: 100%;
             max-width: 650px;
             box-sizing: border-box;
-            background: #F1F3F5; /* Чистая светлая платина под цвет плаката */
+            background: #F1F3F5; 
             padding: 14px 16px;
             font-size: 11px;
             letter-spacing: 0.05em;
@@ -38,12 +39,14 @@
             margin-top: 20px;
         }
 
+        /* Общие стили для всех шагов навигации */
         .editorial-header span, .editorial-header a { 
             color: #71777E; 
             text-decoration: none; 
             font-weight: 600; 
         }
         
+        /* Фирменный алый капс для текущего шага ПРОБЛЕМА */
         .editorial-header .current { 
             color: #B82E12; 
             font-weight: 700; 
@@ -52,11 +55,21 @@
             padding-bottom: 2px; 
         }
 
+        /* Стиль для открытой двери (Симптомы) */
+        .editorial-header .unlocked { 
+            color: #71777E; 
+            text-decoration: none; 
+            font-weight: 600; 
+        }
+        .editorial-header .unlocked:hover { 
+            color: #B82E12; 
+        }
+
         .slide-container {
             max-width: 650px; 
             width: 100%;
             position: relative;
-            /* Наша светлая газетная текстура теперь живет строго ВНУТРИ рамки плаката */
+            /* Наша светлая газетная текстура живет строго ВНУТРИ рамки плаката */
             background: url('bg.jpg') repeat;
             box-shadow: 0 10px 40px rgba(0,0,0,0.3); /* Плотная тень, отрывающая плакат от черного фона */
             margin: 0 auto 40px auto;
@@ -64,13 +77,14 @@
 
         /* УМНОЕ МОБИЛЬНОЕ ПРАВИЛО: на смартфонах убираем темные бока и прижимаем к краям */
         @media (max-width: 768px) {
-            body { background-color: url('bg.jpg') repeat; } /* На смартфонах фон заливается бумагой */
+            body { background-color: url('bg.jpg') repeat; } 
             .slide-container { margin: 0 auto; max-width: 100%; box-shadow: none; }
             .editorial-header { max-width: 100%; font-size: 9px; padding: 12px 8px; margin-top: 0; }
         }
 
         .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; }
 
+        /* НЕВИДИМАЯ ЗОНА СТРОГО ПОВЕРХ ВАШЕЙ НАРИСОВАННОЙ КНОПКИ "РАЗОБРАТЬСЯ" */
         .clickable-zone {
             position: absolute;
             bottom: 4.8%; 
@@ -85,9 +99,10 @@
 </head>
 <body>
 
+    <!-- ВЕРХНИЙ МАРШРУТ (ПРОБЛЕМА горит алым капсом, а Симптомы — открытая дверь-ссылка с UTM-меткой) -->
     <div class="editorial-header">
         <span class="current">ПРОБЛЕМА</span> ➔ 
-        <span>Симптомы</span> ➔ 
+        <a href="b1/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage1" class="unlocked">Симптомы</a> ➔ 
         <span>Разрыв</span> ➔ 
         <span>Причина</span> ➔ 
         <span>Масштаб</span> ➔ 
@@ -95,8 +110,11 @@
         <span>Решение</span>
     </div>
 
+    <!-- ЧИСТЫЙ МОНОЛИТНЫЙ ПЛАКАТ СТРАНИЦЫ 1 -->
     <div class="slide-container">
         <img src="hero.png" alt="Сильная команда выдает слабые презентации" class="responsive-img">
+        
+        <!-- Невидимый No-code переход в папку b1/ (на Страницу 2) -->
         <a href="b1/" class="clickable-zone" title="Разобраться"></a>
     </div>
 
