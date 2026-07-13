@@ -94,7 +94,7 @@
         .step-node.future:hover .node-dot { border-color: #B82E12; background-color: #B82E12; }
         .step-node.future:hover span { color: #B82E12; }
 
-        /* ИСПРАВЛЕННАЯ АДАПТИВНАЯ СЦЕНА БЕЗ ЖЁСТКОЙ ВЫСОТЫ С АВТO-РАЗМЫТИЕМ */
+        /* АДАПТИВНАЯ СЦЕНА С АВТO-РАЗМЫТИЕМ */
         .stage-area { 
             max-width: 650px; 
             width: 100%; 
@@ -106,8 +106,8 @@
         
         /* ЭФФЕКТ ДЛЯ ЗАЩИТЫ ОТ СКРИНШОТОВ (BLUR SHIELD) */
         .stage-area.blurred {
-            filter: blur(30px) grayscale(1);
-            opacity: 0.1;
+            filter: blur(30px) grayscale(1) !important;
+            opacity: 0.1 !important;
         }
 
         .slide-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease; }
@@ -182,7 +182,7 @@
     <!-- ВЕРХНЯЯ ШАПКА -->
     <div class="top-brand-bar">
         <div class="project-title">АУДИТ ПРЕЗЕНТАЦИОННЫХ ПРОЦЕССОВ</div>
-        <div class="owner-title">Учебный центр Ксайлос</div>
+        <div class="owner-title">Учебный中心 Ксайлос</div>
         <div class="session-status">ИССЛЕДОВАНИЕ В ПРОЦЕССЕ</div>
     </div>
 
@@ -199,6 +199,5 @@
 
     <!-- ТЕАТРАЛЬНАЯ СЦЕНА С ID ДЛЯ АВТO-РАЗМЫТИЯ -->
     <div class="stage-area" id="secureContainer">
-        
         <!-- СВЕТЛЫЙ ПОСТЕР -->
         <div class="slide-container poster-light">
