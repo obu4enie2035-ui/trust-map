@@ -94,26 +94,19 @@
         .step-node.future:hover .node-dot { border-color: #B82E12; background-color: #B82E12; }
         .step-node.future:hover span { color: #B82E12; }
 
-        /* АДАПТИВНАЯ СЦЕНА С АВТO-РАЗМЫТИЕМ */
+        /* АДАПТИВНАЯ СЦЕНА КАСКАДА ПОСТЕРОВ */
         .stage-area { 
             max-width: 650px; 
             width: 100%; 
             position: relative; 
             aspect-ratio: 3/4; 
             margin: 0 auto; 
-            transition: filter 0.2s ease, opacity 0.2s ease;
-        }
-        
-        /* ЭФФЕКТ ДЛЯ ЗАЩИТЫ ОТ СКРИНШОТОВ (BLUR SHIELD) */
-        .stage-area.blurred {
-            filter: blur(30px) grayscale(1) !important;
-            opacity: 0.1 !important;
         }
 
         .slide-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease; }
         
-        /* Светлая и темная подложки плакатов */
-        .poster-light { background-color: #F1F3F5; z-index: 10; opacity: 1; transform: scale(1); }
+        /* Стабильные фоны плакатов */
+        .poster-light { background-color: #F8F9FA; z-index: 10; opacity: 1; transform: scale(1); }
         .poster-dark { background-color: #0E0F11; z-index: 5; opacity: 0; transform: translateY(50px) scale(0.98); }
         
         /* Магия проваливания в темноту */
@@ -198,8 +191,14 @@
         <a href="../demo/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage3" class="step-node future"><div class="node-dot"></div><span>Решение</span></a>
     </div>
 
-    <!-- ТЕАТРАЛЬНАЯ СЦЕНА С ID ДЛЯ АВТO-РАЗМЫТИЯ -->
+    <!-- ТЕАТРАЛЬНАЯ СЦЕНА -->
     <div class="stage-area" id="secureContainer">
         
         <!-- СВЕТЛЫЙ ПОСТЕР -->
         <div class="slide-container poster-light">
+            <img src="hero5.png" alt="От меня ждут уровень целого отдела" class="responsive-img">
+            <div class="ai-trigger-zone" onclick="diveIntoAbyss()" title="Добавляют ИИ"></div>
+        </div>
+
+        <div class="slide-container poster-dark">
+            <img src="hero6.png" alt="И технологии не спасают" class="responsive-img">
