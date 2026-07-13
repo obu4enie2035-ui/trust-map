@@ -8,7 +8,7 @@
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* КИБЕРЗАЩИТА: БЛОКИРОВКА ВЫДЕЛЕНИЯ ТЕКСТА И ЭЛЕМЕНТОВ */
+        /* БАЗОВАЯ ЗАЩИТА: ЗАПРЕТ ВЫДЕЛЕНИЯ ЭЛЕМЕНТОВ НА СТРАНИЦЕ */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -30,7 +30,7 @@
             overflow-x: hidden;
         }
         
-        /* 1. ШАПКА (TOP BAR) */
+        /* 1. БАЗОВАЯ СТРИКТНАЯ ШАПКА (TOP BAR) */
         .top-brand-bar {
             width: 100%;
             max-width: 650px;
@@ -52,7 +52,7 @@
         .top-brand-bar .session-status::before { content: ""; width: 5px; height: 5px; background-color: #108548; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
         @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
 
-        /* 2. НАВИГАЦИОННЫЙ ХЕДЕР */
+        /* 2. БАЗОВЫЙ ХЕДЕР («ИНЖЕНЕРНЫЙ ПУНКТИР») */
         .editorial-header { 
             width: 100%; 
             max-width: 650px; 
@@ -83,17 +83,19 @@
         .node-dot { width: 6px; height: 6px; background-color: #FFF; border: 2px solid #A1A8B0; border-radius: 50%; margin-bottom: 6px; transition: all 0.3s ease; }
         .step-node span { color: #A1A8B0; font-weight: 600; transition: color 0.3s; text-align: center; font-size: 10px; }
         
+        /* Пройденные ноды хедера назад */
         .step-node.passed .node-dot { background-color: #25282B; border-color: #25282B; }
         .step-node.passed span { color: #25282B; }
         .step-node.passed:hover span { color: #B82E12; }
 
+        /* Алая нода ПРИЧИНА */
         .step-node.current .node-dot { background-color: #B82E12; border-color: #B82E12; box-shadow: 0 0 0 3px rgba(184, 46, 18, 0.2); }
         .step-node.current span { color: #B82E12; font-weight: 700; text-transform: uppercase; }
         
         .step-node.future:hover .node-dot { border-color: #B82E12; background-color: #B82E12; }
         .step-node.future:hover span { color: #B82E12; }
 
-        /* 3. АДАПТИВНАЯ СЦЕНА КАСКАДА ПОСТЕРOВ */
+        /* 3. АДАПТИВНЫЙ КОНТЕЙНЕР ДЛЯ ДВУХ ПОСТЕРОВ С ПРОПОРЦИЕЙ 3:4 */
         .stage-area { 
             max-width: 650px; 
             width: 100%; 
@@ -102,7 +104,7 @@
             margin: 0 auto; 
         }
 
-        /* ЦИФРОВАЯ ВОТЕРМАРКА */
+        /* ЦИФРОВАЯ СЕТКА-ВОТЕРМАРКА ПОВЕРХ КАРТИНОК */
         .stage-area::after {
             content: "УЦ КСАЙЛОС • ЗАЩИЩЕНО АВТОРСКИМ ПРАВОМ   УЦ КСАЙЛОС • ЗАЩИЩЕНО АВТОРСКИМ ПРАВОМ";
             position: absolute;
@@ -123,22 +125,21 @@
             transform: rotate(-15deg) scale(1.1);
             line-height: 8;
         }
+        .stage-area.abyss::after { color: rgba(255, 255, 255, 0.02) !important; }
 
-        .stage-area.abyss::after {
-            color: rgba(255, 255, 255, 0.02) !important;
-        }
-
+        /* Слои плакатов */
         .slide-container { width: 100%; height: 100%; position: absolute; top: 0; left: 0; box-shadow: 0 10px 40px rgba(0,0,0,0.3); transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.8s ease; }
         
         .poster-light { background-color: #F8F9FA; z-index: 10; opacity: 1; transform: scale(1); }
         .poster-dark { background-color: #0E0F11; z-index: 5; opacity: 0; transform: translateY(50px) scale(0.98); }
         
+        /* Стили перелистывания (Эффект бездны) */
         .stage-area.abyss .poster-light { opacity: 0; transform: scale(0.95); pointer-events: none; }
         .stage-area.abyss .poster-dark { opacity: 1; transform: translateY(0) scale(1); z-index: 20; }
         
         .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; pointer-events: none; }
         
-        /* ЗОНА КЛИКА "ДОБАВЛЯЮТ ИИ" */
+        /* 4. ЗOНА КЛИКА СТРОГО НАД ПЛАШКОЙ "ДОБАВЛЯЮТ ИИ" */
         .ai-trigger-zone { 
             position: absolute; 
             bottom: 3.0%; 
@@ -173,6 +174,7 @@
         .footer-legal-shield { font-size: 9px; line-height: 1.5; color: #53575A; border-top: 1px solid #2F3336; padding-top: 12px; text-align: justify; }
         .footer-expert-tag { font-size: 9px; font-weight: 600; color: #43474A; text-align: right; width: 100%; display: block; }
 
+        /* ТРЕНДОВАЯ МОБИЛЬНАЯ АДАПТАЦИЯ */
         @media (max-width: 768px) { 
             .stage-area, .top-brand-bar, .editorial-header, .premium-footer { max-width: 100%; box-shadow: none; margin-top: 0; margin-bottom: 0; border-radius: 0; } 
             .top-brand-bar { font-size: 7.5px; padding: 10px 8px; flex-direction: column; gap: 4px; text-align: center; }
@@ -186,7 +188,7 @@
             .stage-area::after { font-size: 8px; padding: 20px; line-height: 6; }
         }
 
-        /* КИБЕРЗАЩИТА: ЩИТ ОТ ПЕЧАТИ */
+        /* 6. ЗАЩИТА: КИБЕР-ЩИТ ОТ ОБХОДНОЙ ПЕЧАТИ В PDF */
         @media print {
             body, .top-brand-bar, .editorial-header, .stage-area, .premium-footer { display: none !important; }
             html::after {
@@ -219,5 +221,3 @@
         <a href="../" class="step-node passed"><div class="node-dot"></div><span>Проблема</span></a>
         <a href="../b1/?utm_source=funnel&utm_medium=header&utm_campaign=st3" class="step-node passed"><div class="node-dot"></div><span>Симптомы</span></a>
         <a href="../b3/?utm_source=funnel&utm_medium=header&utm_campaign=st3" class="step-node passed"><div class="node-dot"></div><span>Разрыв</span></a>
-        <div class="step-node current"><div class="node-dot"></div><span>Причина</span></div>
-        <a href="../b4/?utm_source=funnel&utm_medium=header&utm_campaign=st3" class="step-node future"><div class="node-dot"></div><span>Масштаб</span></a>
