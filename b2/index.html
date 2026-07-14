@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Карта доверия — Страница 2: Симптомы</title>
+    <title>Карта доверия — Страница 3: Сценарии</title>
     <link rel="preconnect" href="https://googleapis.com">
     <link rel="preconnect" href="https://gstatic.com" crossorigin>
     <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* КИБЕРЗАЩИТА: БЛОКИРОВКА ВЫДЕЛЕНИЯ КОНТЕНТА И ЭЛЕМЕНТОВ */
+        /* КИБЕРЗАЩИТА */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -32,7 +32,7 @@
             min-height: 100vh; 
         }
         
-        /* 1. СТЕРИЛЬНАЯ ИНЖЕНЕРНАЯ ШАПКА (TOP BAR) */
+        /* 1. ШАПКА */
         .top-brand-bar {
             width: 100%;
             max-width: 650px;
@@ -55,7 +55,7 @@
         .top-brand-bar .session-status::before { content: ""; width: 5px; height: 5px; background-color: #108548; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
         @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
 
-        /* 2. НАВИГАЦИОННЫЙ ХЕДЕР («ИНЖЕНЕРНЫЙ ПУНКТИР») */
+        /* 2. ХЕДЕР */
         .editorial-header { 
             width: 100%; 
             max-width: 650px; 
@@ -87,12 +87,10 @@
         .node-dot { width: 6px; height: 6px; background-color: #FFF; border: 2px solid #A1A8B0; border-radius: 50%; margin-bottom: 6px; transition: all 0.3s ease; }
         .step-node span { color: #A1A8B0; font-weight: 600; transition: color 0.3s; text-align: center; font-size: 10px; }
         
-        /* Пройденный шаг Проблема назад */
         .step-node.passed .node-dot { background-color: #25282B; border-color: #25282B; }
         .step-node.passed span { color: #25282B; }
         .step-node.passed:hover span { color: #B82E12; }
 
-        /* ТЕКУЩИЙ ШАГ СИМПТОМЫ (Вспыхивает алым с пульсацией) */
         .step-node.current .node-dot { 
             background-color: #B82E12; 
             border-color: #B82E12; 
@@ -104,7 +102,7 @@
         .step-node.future:hover .node-dot { border-color: #B82E12; background-color: #B82E12; transform: scale(1.3); }
         .step-node.future:hover span { color: #B82E12; }
 
-        /* 3. КОНТЕЙНЕР ДЛЯ СЛАЙДА ВОРОНКИ 3:4 */
+        /* 3. СЛАЙД */
         .slide-container { 
             max-width: 650px; 
             width: 100%; 
@@ -116,19 +114,8 @@
             animation: fadeScaleIn 0.5s ease 0.3s forwards;
         }
         .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; pointer-events: none; }
-        
-        /* No-Code ЗОНА КЛИКА — ПОДНЯТА ВВЕРХ (было 2.3%, стало 4.5%) */
-        .clickable-zone { 
-            position: absolute; 
-            bottom: 4.5%; 
-            left: 36%; 
-            width: 28%; 
-            height: 2.8%; 
-            display: block; 
-            cursor: pointer; 
-        }
 
-        /* 5. ПОДВАЛ (ФУТЕР) */
+        /* 5. ФУТЕР */
         .premium-footer {
             width: 100%;
             max-width: 650px;
@@ -188,7 +175,6 @@
             }
         }
 
-        /* КИБЕРЗАЩИТА: ЩИТ ОТ ПЕЧАТИ В PDF */
         @media print {
             body, .top-brand-bar, .editorial-header, .slide-container, .premium-footer { display: none !important; }
             html::after {
@@ -209,32 +195,26 @@
 </head>
 <body>
 
-    <!-- 1. ШАПКА -->
     <div class="top-brand-bar">
         <div class="project-title">АУДИТ ПРЕЗЕНТАЦИОННЫХ ПРОЦЕССОВ</div>
         <div class="owner-title">Учебный центр Ксайлос</div>
         <div class="session-status">ИССЛЕДОВАНИЕ В ПРОЦЕССЕ</div>
     </div>
 
-    <!-- 2. ХЕDЕР (СИМПТОМЫ горит алым капсом) -->
     <div class="editorial-header">
         <a href="../" class="step-node passed"><div class="node-dot"></div><span>Проблема</span></a>
-        <div class="step-node current"><div class="node-dot"></div><span>Симптомы</span></div>
-        <a href="../b3/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage2" class="step-node future"><div class="node-dot"></div><span>Разрыв</span></a>
-        <a href="../p1/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage2" class="step-node future"><div class="node-dot"></div><span>Причина</span></a>
-        <a href="../b4/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage2" class="step-node future"><div class="node-dot"></div><span>Масштаб</span></a>
-        <a href="../b6/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage2" class="step-node future"><div class="node-dot"></div><span>Состав</span></a>
-        <a href="../demo/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage2" class="step-node future"><div class="node-dot"></div><span>Решение</span></a>
+        <a href="../b1/?utm_source=funnel&utm_medium=header_back&utm_campaign=stage3" class="step-node passed"><div class="node-dot"></div><span>Симптомы</span></a>
+        <div class="step-node current"><div class="node-dot"></div><span>Сценарии</span></div>
+        <a href="../b3/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage3" class="step-node future"><div class="node-dot"></div><span>Разрыв</span></a>
+        <a href="../p1/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage3" class="step-node future"><div class="node-dot"></div><span>Причина</span></a>
+        <a href="../b4/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage3" class="step-node future"><div class="node-dot"></div><span>Масштаб</span></a>
+        <a href="../demo/?utm_source=funnel&utm_medium=header_forward&utm_campaign=stage3" class="step-node future"><div class="node-dot"></div><span>Решение</span></a>
     </div>
 
-    <!-- 3. СЛАЙД -->
     <div class="slide-container">
-        <img src="hero2.png" alt="Презентации: одинаковые симптомы — разные причины" class="responsive-img">
-        <!-- КРИСТАЛЬНО ЧИСТАЯ ССЫЛКА НА ВАШ ЧЕКАП -->
-        <a href="https://forms.yandex.ru/cloud/6a2fdca702848fae664c5da1" class="clickable-zone" title="Пройти чекап" target="_blank"></a>
+        <img src="hero3.png" alt="Какие сценарии работы создают потери времени" class="responsive-img">
     </div>
 
-    <!-- 5. ПОДВАЛ (ФУТЕР) -->
     <footer class="premium-footer">
         <div class="footer-top-row">
             <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
