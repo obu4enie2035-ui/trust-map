@@ -30,7 +30,7 @@
             overflow-x: hidden;
         }
         
-        /* 1. СТЕРИЛЬНАЯ ИНЖЕНЕРНАЯ ШАПКА (TOP BAR) */
+        /* 1. БАЗОВАЯ ШАПКА (TOP BAR) */
         .top-brand-bar {
             width: 100%;
             max-width: 650px;
@@ -52,7 +52,7 @@
         .top-brand-bar .session-status::before { content: ""; width: 5px; height: 5px; background-color: #108548; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
         @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
 
-        /* 2. НАВИГАЦИОННЫЙ ХЕДЕР («ИНЖЕНЕРНЫЙ ПУНКТИР») */
+        /* 2. БАЗОВЫЙ ХЕДЕР («ИНЖЕНЕРНЫЙ ПУНКТИР») */
         .editorial-header { 
             width: 100%; 
             max-width: 650px; 
@@ -189,7 +189,7 @@
             .stage-area::after { font-size: 8px; padding: 20px; line-height: 6; }
         }
 
-        /* 6. КИБЕРЗАЩИТА: ЩИТ ОТ ПЕЧАТИ В PDF */
+        /* КИБЕРЗАЩИТА: ЩИТ ОТ ПЕЧАТИ В PDF */
         @media print {
             body, .top-brand-bar, .editorial-header, .stage-area, .premium-footer { display: none !important; }
             html::after {
