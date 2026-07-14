@@ -92,7 +92,7 @@
         .step-node.passed span { color: #25282B; }
         .step-node.passed:hover span { color: #B82E12; }
 
-        /* ТЕКУЩИЙ ШАГ СИМПТОМЫ — пульсирующий алый */
+        /* ТЕКУЩИЙ ШАГ СИМПТОМЫ (Вспыхивает алым с пульсацией) */
         .step-node.current .node-dot { 
             background-color: #B82E12; 
             border-color: #B82E12; 
@@ -117,13 +117,13 @@
         }
         .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; pointer-events: none; }
         
-        /* No-Code ЗОНА КЛИКА — ПОДНЯТА ВВЕРХ (bottom: 4.5%) */
+        /* No-Code ЗОНА КЛИКА — ПОДНЯТА ВВЕРХ (было 2.3%, стало 4.5%) */
         .clickable-zone { 
             position: absolute; 
-            bottom: 4.5%;      /* было 2.3% — подняли выше */
+            bottom: 4.5%; 
             left: 36%; 
             width: 28%; 
-            height: 2.8%;      /* было 3.2% — чуть тоньше */
+            height: 2.8%; 
             display: block; 
             cursor: pointer; 
         }
@@ -178,7 +178,6 @@
             .premium-footer { padding: 20px 12px; margin-top: 10px; }
             .footer-logo-link img { height: 20px; }
             .footer-copyright { font-size: 9px; }
-            /* Отключаем анимации на мобилках для производительности */
             .top-brand-bar, .editorial-header, .slide-container, .premium-footer {
                 animation: none !important;
                 opacity: 1 !important;
