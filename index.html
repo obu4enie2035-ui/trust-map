@@ -26,7 +26,6 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/110769765" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
     <style>
-        /* КИБЕРЗАЩИТА: БЛОКИРОВКА ВЫДЕЛЕНИЯ */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -50,7 +49,6 @@
             min-height: 100vh;
         }
 
-        /* ШАПКА (статична) */
         .top-brand-bar {
             width: 100%;
             max-width: 650px;
@@ -66,12 +64,10 @@
             margin-top: 20px;
         }
         .top-brand-bar .project-title { font-weight: 700; color: #1A1D1F; letter-spacing: 0.15em; }
-        .top-brand-bar .owner-title { font-weight: 500; color: #71777E; }
         .top-brand-bar .session-status { font-weight: 600; color: #108548; display: flex; align-items: center; gap: 5px; }
         .top-brand-bar .session-status::before { content: ""; width: 5px; height: 5px; background-color: #108548; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
         @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
 
-        /* ХЕДЕР (6 нод, без Сценариев и Решения) */
         .editorial-header {
             width: 100%;
             max-width: 650px;
@@ -106,7 +102,6 @@
         .step-node.future:hover .node-dot { border-color: #B82E12; background-color: #B82E12; transform: scale(1.3); }
         .step-node.future:hover span { color: #B82E12; }
 
-        /* КОНТЕЙНЕР ПЛАКАТА с анимацией (Fade-In + Scale, 0.6s, один раз) */
         .slide-container {
             max-width: 650px;
             width: 100%;
@@ -114,13 +109,6 @@
             background: #FFFFFF;
             box-shadow: 0 12px 60px rgba(0,0,0,0.2);
             margin: 16px auto 0 auto;
-            opacity: 0;
-            transform: scale(0.98);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .slide-container.visible {
-            opacity: 1;
-            transform: scale(1);
         }
         .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; pointer-events: none; }
 
@@ -134,7 +122,6 @@
             cursor: pointer;
         }
 
-        /* ФУТЕР (статичен) */
         .premium-footer {
             width: 100%;
             max-width: 650px;
@@ -189,13 +176,11 @@
 </head>
 <body>
 
-    <!-- ШАПКА -->
     <div class="top-brand-bar">
         <div class="project-title">АУДИТ ПРЕЗЕНТАЦИОННЫХ ПРОЦЕССОВ</div>
-        <div class="session-status">ИССЛЕДОВАНИЕ В ПРОЦЕССЕ</div>
+        <div class="session-status">● ИССЛЕДОВАНИЕ В ПРОЦЕССЕ</div>
     </div>
 
-    <!-- ХЕДЕР (6 шагов) -->
     <div class="editorial-header">
         <div class="step-node current"><div class="node-dot"></div><span>Проблема</span></div>
         <a href="b1/?utm_source=funnel&utm_medium=header_forward&utm_campaign=key" class="step-node future"><div class="node-dot"></div><span>Симптомы</span></a>
@@ -205,13 +190,11 @@
         <a href="b6/?utm_source=funnel&utm_medium=header_forward&utm_campaign=key" class="step-node future"><div class="node-dot"></div><span>Состав</span></a>
     </div>
 
-    <!-- ПЛАКАТ -->
-    <div class="slide-container" id="slideContainer">
+    <div class="slide-container">
         <img src="hero.png" alt="Сильная команда выдает слабые презентации" class="responsive-img">
         <a href="b1/" class="clickable-zone" title="Разобраться"></a>
     </div>
 
-    <!-- ФУТЕР -->
     <footer class="premium-footer">
         <div class="footer-top-row">
             <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
@@ -226,10 +209,7 @@
     </footer>
 
     <script>
-        // БЛОКИРОВКА ПРАВОЙ КНОПКИ МЫШИ
         document.addEventListener('contextmenu', e => e.preventDefault());
-
-        // БЛОКИРОВКА ГОРЯЧИХ КЛАВИШ
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
@@ -238,40 +218,6 @@
             }
             if (e.keyCode === 123) { e.preventDefault(); return false; }
         });
-
-        // АНИМАЦИЯ ПЛАКАТА — ТОЛЬКО ОДИН РАЗ ЗА СЕССИЮ
-        (function() {
-            const container = document.getElementById('slideContainer');
-            if (!container) return;
-
-            // Проверяем sessionStorage
-            const key = 'key_anim_played';
-            if (sessionStorage.getItem(key)) {
-                container.classList.add('visible');
-                return;
-            }
-
-            // Добавляем класс видимости после загрузки
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        container.classList.add('visible');
-                        sessionStorage.setItem(key, 'true');
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            observer.observe(container);
-
-            // Фолбэк, если observer не сработает (например, уже видно)
-            setTimeout(() => {
-                if (!container.classList.contains('visible')) {
-                    container.classList.add('visible');
-                    sessionStorage.setItem(key, 'true');
-                }
-            }, 1000);
-        })();
     </script>
 </body>
 </html>
