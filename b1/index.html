@@ -64,7 +64,6 @@
             margin-top: 20px;
         }
         .top-brand-bar .project-title { font-weight: 700; color: #1A1D1F; letter-spacing: 0.15em; }
-        /* owner-title удалён */
         .top-brand-bar .session-status { font-weight: 600; color: #108548; display: flex; align-items: center; gap: 5px; }
         .top-brand-bar .session-status::before { content: ""; width: 5px; height: 5px; background-color: #108548; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
         @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
@@ -115,23 +114,15 @@
             background: #FFFFFF;
             box-shadow: 0 12px 60px rgba(0,0,0,0.2);
             margin: 16px auto 0 auto;
-            opacity: 0;
-            transform: scale(0.98);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .slide-container.visible {
-            opacity: 1;
-            transform: scale(1);
         }
         .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; pointer-events: none; }
 
-        /* ИСПРАВЛЕННАЯ ЗОНА КЛИКА — ПОДНЯТА ВВЕРХ */
         .clickable-zone {
             position: absolute;
-            bottom: 4.5%;      /* было 2.3% — подняли выше */
+            bottom: 4.5%;
             left: 36%;
             width: 28%;
-            height: 2.8%;      /* было 3.2% — чуть тоньше */
+            height: 2.8%;
             display: block;
             cursor: pointer;
         }
@@ -204,7 +195,7 @@
         <a href="../b6/?utm_source=funnel&utm_medium=header_forward&utm_campaign=key" class="step-node future"><div class="node-dot"></div><span>Состав</span></a>
     </div>
 
-    <div class="slide-container" id="slideContainer">
+    <div class="slide-container">
         <img src="hero2.png" alt="Презентации: одинаковые симптомы — разные причины" class="responsive-img">
         <a href="../f1/" class="clickable-zone" title="Пройти чекап"></a>
     </div>
@@ -224,7 +215,6 @@
 
     <script>
         document.addEventListener('contextmenu', e => e.preventDefault());
-
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
@@ -233,36 +223,6 @@
             }
             if (e.keyCode === 123) { e.preventDefault(); return false; }
         });
-
-        (function() {
-            const container = document.getElementById('slideContainer');
-            if (!container) return;
-
-            const key = 'key_anim_played';
-            if (sessionStorage.getItem(key)) {
-                container.classList.add('visible');
-                return;
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        container.classList.add('visible');
-                        sessionStorage.setItem(key, 'true');
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            observer.observe(container);
-
-            setTimeout(() => {
-                if (!container.classList.contains('visible')) {
-                    container.classList.add('visible');
-                    sessionStorage.setItem(key, 'true');
-                }
-            }, 1000);
-        })();
     </script>
 </body>
 </html>
