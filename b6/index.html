@@ -114,13 +114,6 @@
             background: #FFFFFF;
             box-shadow: 0 12px 60px rgba(0,0,0,0.2);
             margin: 16px auto 0 auto;
-            opacity: 0;
-            transform: scale(0.98);
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-        .slide-container.visible {
-            opacity: 1;
-            transform: scale(1);
         }
         .responsive-img { width: 100%; height: auto; display: block; margin: 0 auto; pointer-events: none; }
 
@@ -202,7 +195,7 @@
         <div class="step-node current"><div class="node-dot"></div><span>Состав</span></div>
     </div>
 
-    <div class="slide-container" id="slideContainer">
+    <div class="slide-container">
         <img src="hero9.png" alt="Состав изменений определяет результат" class="responsive-img">
         <a href="../demo/?utm_source=funnel&utm_medium=content_forward&utm_campaign=key" class="clickable-zone" title="Посмотрите, как работает система"></a>
     </div>
@@ -231,36 +224,6 @@
             }
             if (e.keyCode === 123) { e.preventDefault(); return false; }
         });
-
-        (function() {
-            const container = document.getElementById('slideContainer');
-            if (!container) return;
-
-            const key = 'key_anim_played';
-            if (sessionStorage.getItem(key)) {
-                container.classList.add('visible');
-                return;
-            }
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        container.classList.add('visible');
-                        sessionStorage.setItem(key, 'true');
-                        observer.disconnect();
-                    }
-                });
-            }, { threshold: 0.1 });
-
-            observer.observe(container);
-
-            setTimeout(() => {
-                if (!container.classList.contains('visible')) {
-                    container.classList.add('visible');
-                    sessionStorage.setItem(key, 'true');
-                }
-            }, 1000);
-        })();
     </script>
 </body>
 </html>
