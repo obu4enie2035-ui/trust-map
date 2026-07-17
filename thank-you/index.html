@@ -1,1 +1,507 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Спасибо! — Аудит процессов</title>
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Яндекс Метрика -->
+    <script>
+        (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j=0; j<document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t), a=e.getElementsByTagName(t)[0], k.async=1, k.src=r, a.parentNode.insertBefore(k,a)})
+        (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+
+        ym(110769765, "init", {
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true
+        });
+    </script>
+    <noscript><div><img src="https://mc.yandex.ru/watch/110769765" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+
+    <style>
+        /* ПОЛНАЯ ЗАЩИТА */
+        * {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+        }
+
+        body {
+            background-image: url('../workspace-bg.jpg');
+            background-repeat: no-repeat;
+            background-position: center top;
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* 1. ШАПКА (Top Bar) */
+        .top-brand-bar {
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            background: #FFFFFF;
+            padding: 10px 16px;
+            font-size: 10px;
+            letter-spacing: 0.06em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #E6E9ED;
+            margin-top: 20px;
+            flex-shrink: 0;
+        }
+        .top-brand-bar .project-title { font-weight: 700; color: #1A1D1F; letter-spacing: 0.15em; }
+        .top-brand-bar .session-status { font-weight: 600; color: #108548; display: flex; align-items: center; gap: 5px; }
+        .top-brand-bar .session-status::before { content: ""; width: 5px; height: 5px; background-color: #108548; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
+        @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
+
+        /* 2. ХЕДЕР (ПОЛНЫЙ ПАРАДНЫЙ — 7 НОД) */
+        .editorial-header {
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            background: #F1F3F5;
+            padding: 16px 16px;
+            font-size: 10px;
+            letter-spacing: 0.05em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #DDE1E5;
+            position: relative;
+            flex-shrink: 0;
+        }
+        .editorial-header::before {
+            content: "";
+            position: absolute;
+            top: 21px;
+            left: 35px;
+            right: 35px;
+            height: 1px;
+            border-top: 1px dashed #CDD2D7;
+            z-index: 1;
+        }
+
+        .step-node {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            text-decoration: none;
+            width: 14.28%;
+        }
+        .node-dot {
+            width: 6px;
+            height: 6px;
+            background-color: #FFF;
+            border: 2px solid #A1A8B0;
+            border-radius: 50%;
+            margin-bottom: 6px;
+            transition: all 0.3s ease;
+        }
+        .step-node span {
+            color: #A1A8B0;
+            font-weight: 600;
+            transition: color 0.3s;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        /* Пройденные шаги — чёрные, активные ссылки */
+        .step-node.passed .node-dot {
+            background-color: #25282B;
+            border-color: #25282B;
+        }
+        .step-node.passed span {
+            color: #25282B;
+        }
+        .step-node.passed:hover span {
+            color: #B82E12;
+        }
+        .step-node.passed:hover .node-dot {
+            border-color: #B82E12;
+            background-color: #B82E12;
+            transform: scale(1.3);
+        }
+
+        /* Пассивная нода МЕТОД (серая, без ссылки) */
+        .step-node.passive .node-dot {
+            border-color: #A1A8B0;
+            background-color: #FFF;
+            cursor: default;
+        }
+        .step-node.passive span {
+            color: #A1A8B0;
+            cursor: default;
+        }
+
+        /* 3. ОСНОВНОЙ КОНТЕЙНЕР (контент) */
+        .thank-you-container {
+            max-width: 650px;
+            width: 100%;
+            background: #FFFFFF;
+            box-shadow: 0 12px 60px rgba(0,0,0,0.2);
+            margin: 16px auto 0 auto;
+            padding: 40px 36px;
+            box-sizing: border-box;
+            flex: 1 0 auto;
+        }
+
+        .thank-you-container h1 {
+            font-size: 40px;
+            font-weight: 700;
+            color: #1A1D1F;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+        .thank-you-container .subtitle {
+            font-size: 20px;
+            font-weight: 500;
+            color: #B82E12;
+            margin: 0 0 24px 0;
+            letter-spacing: 0.02em;
+        }
+        .thank-you-container .lead {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #25282B;
+            margin: 0 0 32px 0;
+        }
+
+        /* БЛОК «ЧТО ДАЛЬШЕ» (3 ШАГА) */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 16px 20px;
+            background: #F1F3F5;
+            border-radius: 4px;
+        }
+        .step-item .step-number {
+            font-weight: 700;
+            font-size: 20px;
+            color: #B82E12;
+            flex-shrink: 0;
+            min-width: 32px;
+        }
+        .step-item .step-text {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #25282B;
+        }
+        .step-item .step-text strong {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 2px;
+        }
+
+        /* БЛОК «ЧТО ВЫ УВИДИТЕ» */
+        .what-you-see {
+            margin-bottom: 32px;
+        }
+        .what-you-see h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #25282B;
+            margin: 0 0 12px 0;
+        }
+        .what-you-see ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .what-you-see ul li {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #25282B;
+            padding: 4px 0 4px 24px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%23B82E12' viewBox='0 0 16 16'%3E%3Ccircle cx='8' cy='8' r='4'/%3E%3C/svg%3E") left center no-repeat;
+            background-size: 12px;
+        }
+
+        /* ВАЖНЫЙ БЛОК */
+        .important-box {
+            background: #F8F9FA;
+            border-left: 4px solid #B82E12;
+            padding: 16px 20px;
+            margin-bottom: 32px;
+        }
+        .important-box p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #25282B;
+            margin: 0 0 8px 0;
+        }
+        .important-box p:last-child {
+            margin-bottom: 0;
+        }
+        .important-box strong {
+            color: #B82E12;
+        }
+
+        /* БЛОК С ГАЛОЧКАМИ */
+        .checklist {
+            margin-bottom: 32px;
+        }
+        .checklist h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #25282B;
+            margin: 0 0 12px 0;
+        }
+        .checklist ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .checklist ul li {
+            font-size: 14px;
+            line-height: 1.5;
+            color: #25282B;
+            padding: 4px 0 4px 28px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' fill='%23B82E12' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E") left center no-repeat;
+            background-size: 16px;
+        }
+
+        /* ФИНАЛЬНЫЙ БЛОК */
+        .final-thought {
+            font-size: 18px;
+            font-weight: 600;
+            color: #B82E12;
+            text-align: center;
+            line-height: 1.4;
+            margin-bottom: 32px;
+            padding: 20px 0;
+            border-top: 1px solid #DDE1E5;
+            border-bottom: 1px solid #DDE1E5;
+        }
+
+        /* КНОПКА ВЫБОРА ВРЕМЕНИ */
+        .cta-button {
+            display: inline-block;
+            background: #B82E12;
+            color: #FFFFFF;
+            font-weight: 600;
+            font-size: 18px;
+            padding: 16px 40px;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            transition: background 0.2s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .cta-button:hover {
+            background: #9E2610;
+        }
+
+        .cta-wrapper {
+            text-align: center;
+            margin: 8px 0 0 0;
+        }
+        .cta-note {
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 8px;
+            text-align: center;
+        }
+
+        /* 5. ПОДВАЛ (ФУТЕР) */
+        .premium-footer {
+            width: 100%;
+            max-width: 650px;
+            box-sizing: border-box;
+            background: #1A1D1F;
+            padding: 24px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-top: 24px;
+            margin-bottom: 40px;
+        }
+        .footer-top-row { display: flex; justify-content: space-between; align-items: center; width: 100%; }
+        .footer-logo-link { display: flex; align-items: center; text-decoration: none; transition: opacity 0.2s; }
+        .footer-logo-link img { height: 24px; width: auto; display: block; }
+        .footer-logo-link:hover { opacity: 0.85; }
+        .footer-copyright { font-size: 10px; font-weight: 500; color: #71777E; }
+        .footer-legal-shield { font-size: 9px; line-height: 1.5; color: #53575A; border-top: 1px solid #2F3336; padding-top: 12px; text-align: justify; }
+        .footer-expert-tag { font-size: 9px; font-weight: 600; color: #43474A; text-align: right; width: 100%; display: block; }
+
+        /* АДАПТИВНОСТЬ */
+        @media (max-width: 768px) {
+            body { background-image: none; background-color: #F8F9FA; }
+            .top-brand-bar, .editorial-header, .thank-you-container, .premium-footer { max-width: 100%; box-shadow: none; margin-top: 0; margin-bottom: 0; border-radius: 0; }
+            .top-brand-bar { font-size: 7.5px; padding: 10px 8px; flex-direction: column; gap: 4px; text-align: center; }
+            .editorial-header { padding: 12px 4px; }
+            .editorial-header::before { top: 17px; left: 20px; right: 20px; }
+            .node-dot { width: 4px; height: 4px; margin-bottom: 4px; }
+            .step-node span { font-size: 8px; }
+            .thank-you-container { padding: 24px 16px; margin-top: 0; }
+            .thank-you-container h1 { font-size: 28px; }
+            .thank-you-container .subtitle { font-size: 16px; }
+            .step-item { padding: 12px 16px; }
+            .step-item .step-number { font-size: 18px; min-width: 28px; }
+            .step-item .step-text { font-size: 13px; }
+            .what-you-see ul li, .checklist ul li { font-size: 13px; }
+            .final-thought { font-size: 16px; padding: 16px 0; }
+            .cta-button { font-size: 16px; padding: 14px 20px; }
+            .premium-footer { padding: 20px 12px; margin-top: 16px; }
+            .footer-logo-link img { height: 20px; }
+            .footer-copyright { font-size: 9px; }
+        }
+
+        @media print {
+            body { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 1. ШАПКА -->
+    <div class="top-brand-bar">
+        <div class="project-title">АУДИТ ПРЕЗЕНТАЦИОННЫХ ПРОЦЕССОВ</div>
+        <div class="session-status">● ИССЛЕДОВАНИЕ В ПРОЦЕССЕ</div>
+    </div>
+
+    <!-- 2. ПОЛНЫЙ ПАРАДНЫЙ ХЕДЕР (7 НОД) -->
+    <div class="editorial-header">
+        <a href="../" class="step-node passed"><div class="node-dot"></div><span>Проблема</span></a>
+        <a href="../b1/" class="step-node passed"><div class="node-dot"></div><span>Симптомы</span></a>
+        <a href="../b3/" class="step-node passed"><div class="node-dot"></div><span>Разрыв</span></a>
+        <a href="../p1/" class="step-node passed"><div class="node-dot"></div><span>Причина</span></a>
+        <a href="../b4/" class="step-node passed"><div class="node-dot"></div><span>Масштаб</span></a>
+        <a href="../b6/" class="step-node passed"><div class="node-dot"></div><span>Состав</span></a>
+        <div class="step-node passive"><div class="node-dot"></div><span>Метод</span></div>
+    </div>
+
+    <!-- 3. ОСНОВНОЙ КОНТЕНТ -->
+    <div class="thank-you-container">
+
+        <h1>СПАСИБО!<br>ПЕРВЫЙ ШАГ СДЕЛАН</h1>
+        <div class="subtitle">Мы получили вашу заявку и готовим демонстрацию</div>
+
+        <p class="lead">Мы изучим ваши ответы, чтобы сделать встречу максимально полезной. А пока — несколько важных деталей.</p>
+
+        <!-- БЛОК «ЧТО БУДЕТ ДАЛЬШЕ» -->
+        <div class="steps">
+            <div class="step-item">
+                <div class="step-number">01</div>
+                <div class="step-text"><strong>Изучим ваши ответы</strong>Чтобы демонстрация была максимально близка к вашим задачам.</div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">02</div>
+                <div class="step-text"><strong>Согласуем время встречи</strong>Встреча проходит онлайн и занимает около 30–40 минут.</div>
+            </div>
+            <div class="step-item">
+                <div class="step-number">03</div>
+                <div class="step-text"><strong>Покажем результат аудита</strong>Вы увидите: как выглядит Паспорт команды, Карта презентационных практик и результаты диагностики.</div>
+            </div>
+        </div>
+
+        <!-- БЛОК «ЧТО ВЫ УВИДИТЕ» -->
+        <div class="what-you-see">
+            <h2>Что вы увидите на встрече</h2>
+            <ul>
+                <li>Паспорт команды — как выглядят данные по компетенциям.</li>
+                <li>Карта потерь — где утекает время и деньги.</li>
+                <li>Результаты диагностики — как мы визуализируем данные.</li>
+                <li>Выводы — какие управленческие решения можно принять на основе этих данных.</li>
+                <li>Анализ необходимости диагностики — нужна ли она вашей команде.</li>
+            </ul>
+        </div>
+
+        <!-- ВАЖНЫЙ БЛОК -->
+        <div class="important-box">
+            <p><strong>Важно</strong></p>
+            <p>Во время встречи мы не оцениваем вашу компанию и не делаем выводов по вашей ситуации.</p>
+            <p>Мы показываем сам инструмент и объясняем, какие ответы он помогает получить руководителю.</p>
+            <p>После этого вы сможете спокойно решить, есть ли смысл проводить аудит в вашей команде.</p>
+        </div>
+
+        <!-- БЛОК С ГАЛОЧКАМИ -->
+        <div class="checklist">
+            <h2>Что вы сможете понять после встречи</h2>
+            <ul>
+                <li>Какие данные можно получить с помощью диагностики.</li>
+                <li>Какие управленческие вопросы она помогает решить.</li>
+                <li>Чем аудит отличается от обычного обучения PowerPoint.</li>
+                <li>Подходит ли такой формат именно вашей компании.</li>
+            </ul>
+        </div>
+
+        <!-- ФИНАЛЬНАЯ МЫСЛЬ -->
+        <div class="final-thought">
+            Прежде чем инвестировать время и бюджет в обучение, полезно понять, какую проблему действительно нужно решать. Именно для этого и существует аудит презентационных практик.
+        </div>
+
+        <!-- КНОПКА ВЫБОРА ВРЕМЕНИ -->
+        <div class="cta-wrapper">
+            <a href="https://calendly.com/your-link" class="cta-button" data-metric="choose_time" target="_blank">
+                Выбрать время в календаре
+            </a>
+            <div class="cta-note">Выберите удобное время — мы подтвердим встречу в течение часа</div>
+        </div>
+
+        <div style="margin-top: 24px; font-size: 14px; color: #6B7280; text-align: center; border-top: 1px solid #DDE1E5; padding-top: 16px;">
+            Если до встречи появятся вопросы, вы всегда можете связаться с нами — мы с удовольствием всё расскажем.
+        </div>
+
+    </div>
+
+    <!-- 4. ПОДВАЛ (ФУТЕР) -->
+    <footer class="premium-footer">
+        <div class="footer-top-row">
+            <a href="https://xylos.ru" class="footer-logo-link" target="_blank" title="Перейти на официальный сайт Ксайлос">
+                <img src="../logo-footer.png" alt="Ксайлос">
+            </a>
+            <div class="footer-copyright">© 2026 Учебный центр Ксайлос. Все права защищены.</div>
+        </div>
+        <div class="footer-legal-shield">
+            Материалы страницы являются объектом интеллектуальной собственности. Любое копирование, тиражирование или распространение контента без письменного согласия правообладателя влечет за собой административную и уголовную ответственность согласно законодательству РФ.
+        </div>
+        <div class="footer-expert-tag">Разработано методологическим бюро SlideCraft Pro для Ксайлос</div>
+    </footer>
+
+    <script>
+        document.addEventListener('contextmenu', e => e.preventDefault());
+
+        document.addEventListener('keydown', function(e) {
+            if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
+                e.preventDefault();
+                alert("Действие заблокировано политикой безопасности контента Ксайлос.");
+                return false;
+            }
+            if (e.keyCode === 123) { e.preventDefault(); return false; }
+        });
+    </script>
+
+</body>
+</html>
