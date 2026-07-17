@@ -26,6 +26,7 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/110769765" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
     <style>
+        /* ПОЛНАЯ ЗАЩИТА: запрет выделения, копирования, контекстного меню */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -167,6 +168,7 @@
 
     <script>
         document.addEventListener('contextmenu', e => e.preventDefault());
+
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
