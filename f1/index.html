@@ -26,6 +26,7 @@
     <noscript><div><img src="https://mc.yandex.ru/watch/110769765" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
     <style>
+        /* ЗАЩИТА: ЗАПРЕТ ВЫДЕЛЕНИЯ */
         * {
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -52,7 +53,7 @@
             overflow-x: hidden;
         }
 
-        /* ШАПКА (лёгкая) */
+        /* ЛЁГКАЯ ШАПКА (без Учебный центр Ксайлос) */
         .top-brand-bar {
             width: 100%;
             max-width: 650px;
@@ -73,11 +74,10 @@
         .top-brand-bar .session-status::before { content: ""; width: 5px; height: 5px; background-color: #108548; border-radius: 50%; display: inline-block; animation: blink 2s infinite; }
         @keyframes blink { 0% { opacity: 0.3; } 50% { opacity: 1; } 100% { opacity: 0.3; } }
 
-        /* КОНТЕЙНЕР ФОРМЫ */
         .iframe-container {
             max-width: 650px;
             width: 100%;
-            padding: 0 16px;
+            padding: 0 16px 20px 16px;
             box-sizing: border-box;
             flex: 1 0 auto;
             display: flex;
@@ -92,15 +92,15 @@
             min-height: 600px;
         }
 
-        /* ПАРЯЩИЙ ЩИТ — ПЕРЕКРЫВАЕТ ПЛАШКУ ЯНДЕКСА */
-        .anti-yandex-shield {
+        /* ЖИВОЙ ПАРЯЩИЙ ЩИТ — 42px, не мешает кнопкам */
+        .floating-anti-yandex-shield {
             position: fixed;
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 65px;
+            height: 42px;
             background-color: #F8F9FA;
-            z-index: 9999;
+            z-index: 99999;
             pointer-events: none;
             border-top: 1px solid #F8F9FA;
         }
@@ -108,9 +108,9 @@
         @media (max-width: 768px) {
             body { background-image: none; background-color: #F8F9FA; }
             .top-brand-bar { max-width: 100%; margin-top: 0; border-radius: 0; font-size: 7.5px; padding: 10px 8px; flex-direction: column; gap: 4px; text-align: center; }
-            .iframe-container { max-width: 100%; padding: 0; }
+            .iframe-container { max-width: 100%; padding: 0 0 20px 0; }
             iframe { min-height: 500px; }
-            .anti-yandex-shield { height: 55px; }
+            .floating-anti-yandex-shield { height: 36px; }
         }
 
         @media print {
@@ -130,10 +130,13 @@
         <iframe src="https://forms.yandex.ru/cloud/6a2fdca702848fae664c5da1?iframe=1" frameborder="0" name="ya-form-6a2fdca702848fae664c5da1" width="650"></iframe>
     </div>
 
-    <div class="anti-yandex-shield"></div>
+    <div class="floating-anti-yandex-shield"></div>
 
     <script>
+        // БЛОКИРОВКА ПРАВОЙ КНОПКИ МЫШИ
         document.addEventListener('contextmenu', e => e.preventDefault());
+
+        // БЛОКИРОВКА ГОРЯЧИХ КЛАВИШ
         document.addEventListener('keydown', function(e) {
             if ((e.ctrlKey || e.metaKey) && (e.keyCode === 67 || e.keyCode === 83 || e.keyCode === 80 || e.keyCode === 85 || e.keyCode === 73)) {
                 e.preventDefault();
